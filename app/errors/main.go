@@ -29,3 +29,15 @@ type UserNameIsTaken struct{}
 func (err UserNameIsTaken) Error() string {
 	return "username is taken"
 }
+
+type SessionNotFound struct{}
+
+func (err SessionNotFound) Error() string {
+	return "session not found"
+}
+
+type UserNotFound struct{}
+
+func (err UserNotFound) Error() string {
+	return "user not found"
+}

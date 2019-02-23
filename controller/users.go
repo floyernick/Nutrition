@@ -95,3 +95,57 @@ func (controller Controller) UsersSignIn(params request.UsersSignIn) (response.U
 	return result, nil
 
 }
+
+func (controller Controller) UsersUpdateNutrientsRates(params request.UsersUpdateNutrientsRates) (response.UsersUpdateNutrientsRates, error) {
+
+	var result response.UsersUpdateNutrientsRates
+
+	if err := validator.Process(params); err != nil {
+		return result, errors.InvalidParams{}
+	}
+
+	session, err := controller.storage.GetSession(params.Token)
+
+	if err != nil {
+		return result, errors.SessionNotFound{}
+	}
+
+	user, err := controller.storage.GetUser(session.UserId)
+
+	if err != nil {
+		return result, errors.UserNotFound{}
+	}
+
+	if params.Calories != nil {
+		user.Calories = *params.Calories
+	}
+
+	if params.Proteins != nil {
+		user.Proteins = *params.Proteins
+	}
+
+	if params.Carbohydrates != nil {
+		user.Carbohydrates = *params.Carbohydrates
+	}
+
+	if params.Fats != nil {
+		user.Fats = *params.Fats
+	}
+
+	if params.Salt != nil {
+		user.Salt = *params.Salt
+	}
+
+	if params.Sugar != nil {
+		user.Sugar = *params.Sugar
+	}
+
+	err = controller.storage.UpdateUser(user)
+
+	if err != nil {
+		return result, errors.InternalError{}
+	}
+
+	return result, nil
+
+}

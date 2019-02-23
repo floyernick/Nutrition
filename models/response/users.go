@@ -7,3 +7,5 @@ type UsersSignUp struct {
 type UsersSignIn struct {
 	Token string `json:"token"`
 }
+
+type UsersUpdateNutrientsRates struct{}

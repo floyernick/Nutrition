@@ -5,6 +5,7 @@ import "Nutrition/models"
 type Storage interface {
 	sessionStorage
 	userStorage
+	productStorage
 }
 
 type sessionStorage interface {
@@ -19,4 +20,8 @@ type userStorage interface {
 	DeleteUser(models.User) error
 	GetUser(string) (models.User, error)
 	GetUserByName(string) (models.User, error)
+}
+
+type productStorage interface {
+	GetProductsByNamePattern(string) ([]models.Product, error)
 }

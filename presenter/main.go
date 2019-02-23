@@ -19,6 +19,7 @@ func Init(config config.ServerConfig, controller controller.Controller) error {
 	mux.HandleFunc("/users.signin", handleRequest(presenter.UsersSignIn))
 	mux.HandleFunc("/users.signup", handleRequest(presenter.UsersSignUp))
 	mux.HandleFunc("/users.updateNutrientsRates", handleRequest(presenter.UsersUpdateNutrientsRates))
+	mux.HandleFunc("/products.search", handleRequest(presenter.ProductsSearch))
 
 	server := &http.Server{
 		Addr:         config.Port,

@@ -16,3 +16,17 @@ CREATE TABLE users
   salt          FLOAT              NOT NULL,
   sugar         FLOAT              NOT NULL
 );
+
+CREATE TABLE products
+(
+  id            UUID PRIMARY KEY,
+  name          VARCHAR(150) NOT NULL,
+  image_url     VARCHAR(250) NOT NULL,
+  description   TEXT         NOT NULL,
+  calories      INT          NOT NULL,
+  proteins      FLOAT        NOT NULL,
+  carbohydrates FLOAT        NOT NULL,
+  fats          FLOAT        NOT NULL,
+  salt          FLOAT        NOT NULL,
+  sugar         FLOAT        NOT NULL
+);

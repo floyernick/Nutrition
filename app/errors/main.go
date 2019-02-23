@@ -17,3 +17,9 @@ type InvalidParams struct{}
 func (err InvalidParams) Error() string {
 	return "invalid params"
 }
+
+type InvalidCredentials struct{}
+
+func (err InvalidCredentials) Error() string {
+	return "invalid credentials"
+}

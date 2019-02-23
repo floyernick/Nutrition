@@ -16,6 +16,7 @@ func Init(config config.ServerConfig, controller controller.Controller) error {
 	presenter := Presenter{controller}
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("/users.signin", handleRequest(presenter.UsersSignIn))
 
 	server := &http.Server{
 		Addr:         config.Port,

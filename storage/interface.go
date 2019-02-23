@@ -18,4 +18,5 @@ type userStorage interface {
 	UpdateUser(models.User) error
 	DeleteUser(models.User) error
 	GetUser(string) (models.User, error)
+	GetUserByName(string) (models.User, error)
 }

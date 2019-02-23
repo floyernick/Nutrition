@@ -11,3 +11,7 @@ type User struct {
 	Salt          float64
 	Sugar         float64
 }
+
+func (user *User) Exists() bool {
+	return user.Id != ""
+}

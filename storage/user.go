@@ -55,7 +55,7 @@ func (storage Service) GetUser(id string) (models.User, error) {
 
 	query := "SELECT id, name, password, calories, proteins, carbohydrates, fats, salt, sugar FROM users WHERE id = $1"
 
-	err := storage.pool.QueryRow(query, id).Scan()
+	err := storage.pool.QueryRow(query, id).Scan(&user.Id, &user.Name, &user.Password, &user.Calories, &user.Proteins, &user.Carbohydrates, &user.Fats, &user.Salt, &user.Sugar)
 
 	if err != nil && err != sql.ErrNoRows {
 		logger.Error(err.Error())
@@ -71,7 +71,7 @@ func (storage Service) GetUserByName(name string) (models.User, error) {
 
 	query := "SELECT id, name, password, calories, proteins, carbohydrates, fats, salt, sugar FROM users WHERE name = $1"
 
-	err := storage.pool.QueryRow(query, name).Scan()
+	err := storage.pool.QueryRow(query, name).Scan(&user.Id, &user.Name, &user.Password, &user.Calories, &user.Proteins, &user.Carbohydrates, &user.Fats, &user.Salt, &user.Sugar)
 
 	if err != nil && err != sql.ErrNoRows {
 		logger.Error(err.Error())

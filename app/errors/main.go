@@ -23,3 +23,9 @@ type InvalidCredentials struct{}
 func (err InvalidCredentials) Error() string {
 	return "invalid credentials"
 }
+
+type UserNameIsTaken struct{}
+
+func (err UserNameIsTaken) Error() string {
+	return "username is taken"
+}

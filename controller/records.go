@@ -90,3 +90,55 @@ func (controller Controller) RecordsDelete(params request.RecordsDelete) (respon
 
 	return result, nil
 }
+
+func (controller Controller) RecordsList(params request.RecordsList) (response.RecordsList, error) {
+
+	var result response.RecordsList
+
+	if err := validator.Process(params); err != nil {
+		return result, errors.InvalidParams{}
+	}
+
+	session, err := controller.storage.GetSession(params.Token)
+
+	if err != nil {
+		return result, errors.SessionNotFound{}
+
+	}
+
+	records, err := controller.storage.GetRecordsByPeriod(session.UserId, params.DateFrom, params.DateTo)
+
+	if err != nil {
+		return result, errors.InternalError{}
+	}
+
+	result.Records = make([]response.RecordsListRecord, 0, len(records))
+	result.Stats = make(map[string]response.RecordsListStats)
+
+	for _, record := range records {
+		resultRecord := response.RecordsListRecord{
+			Id:            record.Id,
+			Name:          record.Name,
+			Calories:      record.Calories,
+			Proteins:      record.Proteins,
+			Carbohydrates: record.Carbohydrates,
+			Fats:          record.Fats,
+			Salt:          record.Salt,
+			Sugar:         record.Sugar,
+			Created:       record.Created,
+		}
+		result.Records = append(result.Records, resultRecord)
+		recordDate := dates.PickDate(record.Created)
+		recordStats := result.Stats[recordDate]
+		recordStats.Calories += record.Calories
+		recordStats.Proteins += record.Proteins
+		recordStats.Carbohydrates += record.Carbohydrates
+		recordStats.Fats += record.Fats
+		recordStats.Salt += record.Salt
+		recordStats.Sugar += record.Sugar
+		result.Stats[recordDate] = recordStats
+	}
+
+	return result, nil
+
+}

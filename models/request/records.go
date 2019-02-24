@@ -15,3 +15,9 @@ type RecordsDelete struct {
 	Token string `json:"token" validate:"required,min=36,max=36"`
 	Id    string `json:"id" validate:"required,min=36,max=36"`
 }
+
+type RecordsList struct {
+	Token    string `json:"token" validate:"required,min=36,max=36"`
+	DateFrom string `json:"date_from" validate:"required,datetime"`
+	DateTo   string `json:"date_to" validate:"required,datetime"`
+}

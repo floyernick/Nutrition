@@ -31,4 +31,5 @@ type recordStorage interface {
 	StoreRecord(models.Record) error
 	DeleteRecord(models.Record) error
 	GetRecord(id string) (models.Record, error)
+	GetRecordsByPeriod(string, string, string) ([]models.Record, error)
 }

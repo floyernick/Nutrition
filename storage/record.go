@@ -50,3 +50,31 @@ func (storage Service) GetRecord(id string) (models.Record, error) {
 	return record, nil
 
 }
+
+func (storage Service) GetRecordsByPeriod(id string, dateFrom string, dateTo string) ([]models.Record, error) {
+
+	records := make([]models.Record, 0)
+
+	query := "SELECT id, user_id, name, calories, proteins, carbohydrates, fats, salt, sugar, created FROM records WHERE user_id = $1 AND created > $2 AND created < $3 ORDER BY created DESC"
+
+	rows, err := storage.pool.Query(query, id, dateFrom, dateTo)
+
+	if err != nil && err != sql.ErrNoRows {
+		logger.Warning(err.Error())
+		return records, err
+	}
+
+	defer rows.Close()
+
+	for rows.Next() {
+		var record models.Record
+		err := rows.Scan(&record.Id, &record.UserId, &record.Name, &record.Calories, &record.Proteins, &record.Carbohydrates, &record.Fats, &record.Salt, &record.Sugar, &record.Created)
+		if err != nil {
+			return records, err
+		}
+		records = append(records, record)
+	}
+
+	return records, nil
+
+}

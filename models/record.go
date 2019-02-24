@@ -12,3 +12,11 @@ type Record struct {
 	Sugar         float64
 	Created       string
 }
+
+func (record *Record) Exists() bool {
+	return record.Id != ""
+}
+
+func (record *Record) BelongsTo(user User) bool {
+	return record.UserId == user.Id
+}

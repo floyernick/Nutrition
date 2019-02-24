@@ -18,6 +18,12 @@ func (err InvalidParams) Error() string {
 	return "invalid params"
 }
 
+type ActionNotAllowed struct{}
+
+func (err ActionNotAllowed) Error() string {
+	return "action not allowed"
+}
+
 type InvalidCredentials struct{}
 
 func (err InvalidCredentials) Error() string {
@@ -40,4 +46,10 @@ type UserNotFound struct{}
 
 func (err UserNotFound) Error() string {
 	return "user not found"
+}
+
+type RecordNotFound struct{}
+
+func (err RecordNotFound) Error() string {
+	return "record not found"
 }

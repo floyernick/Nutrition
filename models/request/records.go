@@ -10,3 +10,8 @@ type RecordsCreate struct {
 	Salt          float64 `json:"salt" validate:"omitempty"`
 	Sugar         float64 `json:"sugar" validate:"omitempty"`
 }
+
+type RecordsDelete struct {
+	Token string `json:"token" validate:"required,min=36,max=36"`
+	Id    string `json:"id" validate:"required,min=36,max=36"`
+}

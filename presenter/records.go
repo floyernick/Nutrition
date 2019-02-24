@@ -1,0 +1,25 @@
+package presenter
+
+import (
+	"Nutrition/app/errors"
+	"Nutrition/models/request"
+	"net/http"
+)
+
+func (presenter Presenter) RecordsCreate(r *http.Request) (interface{}, error) {
+
+	var params request.RecordsCreate
+
+	if err := parseRequestBody(r, &params); err != nil {
+		return nil, errors.BadRequest{}
+	}
+
+	result, err := presenter.controller.RecordsCreate(params)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+
+}
